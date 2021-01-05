@@ -1,4 +1,4 @@
-const myLibrary = [];
+let myLibrary = [];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -18,13 +18,26 @@ function addBookToLibrary() {
 
   let book = new Book(title.value, author.value, pages.value, read.checked);
   myLibrary.push(book);
+  saveLocal();
   const bookCard = new Card(book);
-  bookCard.createCard(book);
+  newBook(bookCard);
+}
+
+function newBook(bookCard) {
+  resetList();
+  for (let book of myLibrary) {
+    bookCard.createCard(book);
+  }
+}
+
+function resetList() {
+  row.innerHTML = '';
 }
 
 function deleteBook(e) {
   const bookIndex = myLibrary.indexOf(e.target);
   myLibrary.splice(bookIndex, 1);
+  saveLocal();
   e.target.offsetParent.parentElement.remove();
 }
 
@@ -87,3 +100,16 @@ function changeStatus(e) {
     e.target.textContent = 'Read';
   }
 }
+
+function saveLocal() {
+  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+}
+
+function restoreLocal() {
+  myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+  if (myLibrary === null) myLibrary = [];
+  const bookCard = new Card;
+  newBook(bookCard);
+}
+
+restoreLocal();
