@@ -90,7 +90,7 @@ function newBook(bookCard) {
   resetList();
   myLibrary.forEach(book => {
     bookCard.createCard(book);
-  })
+  });
 }
 
 function restoreLocal() {
