@@ -15,12 +15,16 @@ const btn = document.querySelector('#createBtn');
 btn.addEventListener("click", addBookToLibrary);
 
 function addBookToLibrary() {
-  let book = new Book(title.value, author.value, pages.value, read.checked);
-  myLibrary.push(book);
-  saveLocal();
-  const bookCard = new Card(book);
-  newBook(bookCard);
-  cleanInputs();
+  if (title.value == '' || author.value == '' || pages.value == '') {
+    restoreLocal();
+  } else {
+    let book = new Book(title.value, author.value, pages.value, read.checked);
+    myLibrary.push(book);
+    saveLocal();
+    const bookCard = new Card(book);
+    newBook(bookCard);
+    cleanInputs();
+  }
 }
 
 function cleanInputs() {
