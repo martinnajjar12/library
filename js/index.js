@@ -1,8 +1,13 @@
 let myLibrary = [];
-let title = document.querySelector('#title');
-let author = document.querySelector('#author');
-let pages = document.querySelector('#pages');
-let read = document.querySelector('#readStatus');
+const title = document.querySelector('#title');
+const author = document.querySelector('#author');
+const pages = document.querySelector('#pages');
+const read = document.querySelector('#readStatus');
+const row = document.querySelector('.row');
+
+function saveLocal() {
+  localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
+}
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -11,38 +16,16 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-const btn = document.querySelector('#createBtn');
-btn.addEventListener("click", addBookToLibrary);
+function Card(book) {
+  this.book = book;
+}
 
-function addBookToLibrary() {
-  if (title.value == '' || author.value == '' || pages.value == '') {
-    restoreLocal();
+function changeStatus(e) {
+  if(e.target.textContent == 'Read') {
+    e.target.textContent = 'Not Read';
   } else {
-    let book = new Book(title.value, author.value, pages.value, read.checked);
-    myLibrary.push(book);
-    saveLocal();
-    const bookCard = new Card(book);
-    newBook(bookCard);
-    cleanInputs();
+    e.target.textContent = 'Read';
   }
-}
-
-function cleanInputs() {
-  title.value = '';
-  author.value = '';
-  pages.value = '';
-  read.checked = false;
-}
-
-function newBook(bookCard) {
-  resetList();
-  for (let book of myLibrary) {
-    bookCard.createCard(book);
-  }
-}
-
-function resetList() {
-  row.innerHTML = '';
 }
 
 function deleteBook(e) {
@@ -50,12 +33,6 @@ function deleteBook(e) {
   myLibrary.splice(bookIndex, 1);
   saveLocal();
   e.target.offsetParent.parentElement.remove();
-}
-
-const row = document.querySelector('.row');
-
-function Card(book) {
-  this.book = book;
 }
 
 Card.prototype.createCard = (book) => {
@@ -105,23 +82,45 @@ Card.prototype.createCard = (book) => {
   row.appendChild(column);
 }
 
-function changeStatus(e) {
-  if(e.target.textContent == 'Read') {
-    e.target.textContent = 'Not Read';
-  } else {
-    e.target.textContent = 'Read';
+function resetList() {
+  row.innerHTML = '';
+}
+
+function newBook(bookCard) {
+  resetList();
+  for (let book of myLibrary) {
+    bookCard.createCard(book);
   }
 }
 
-function saveLocal() {
-  localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
-}
-
 function restoreLocal() {
-  myLibrary = JSON.parse(localStorage.getItem("myLibrary"));
+  myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
   if (myLibrary === null) myLibrary = [];
   const bookCard = new Card;
   newBook(bookCard);
 }
+
+function cleanInputs() {
+  title.value = '';
+  author.value = '';
+  pages.value = '';
+  read.checked = false;
+}
+
+function addBookToLibrary() {
+  if (title.value === '' || author.value === '' || pages.value === '') {
+    restoreLocal();
+  } else {
+    const book = new Book(title.value, author.value, pages.value, read.checked);
+    myLibrary.push(book);
+    saveLocal();
+    const bookCard = new Card(book);
+    newBook(bookCard);
+    cleanInputs();
+  }
+}
+
+const btn = document.querySelector('#createBtn');
+btn.addEventListener('click', addBookToLibrary);
 
 restoreLocal();
