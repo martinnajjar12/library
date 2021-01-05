@@ -2,7 +2,17 @@ const myLibrary = [];
 const btn = document.querySelector('#createBtn');
 const row = document.querySelector('.row');
 
-function createCard(book) {
+function deleteBook(e) {
+  const bookIndex = myLibrary.indexOf(e.target);
+  myLibrary.splice(bookIndex, 1);
+  e.target.offsetParent.parentElement.remove();
+}
+
+function Card(book) {
+  this.book = book;
+}
+
+Card.prototype.createCard = (book) => {
   const column = document.createElement('div');
   column.classList.add('col-6');
 
@@ -24,9 +34,15 @@ function createCard(book) {
   cardPages.classList.add('card-text');
   cardPages.textContent = book.pages;
 
+  const deleteBtn = document.createElement('button');
+  deleteBtn.setAttribute('type', 'button');
+  deleteBtn.textContent = 'Delete Book';
+  deleteBtn.addEventListener('click', deleteBook);
+
   cardBody.appendChild(cardTitle);
   cardBody.appendChild(subTitle);
   cardBody.appendChild(cardPages);
+  cardBody.appendChild(deleteBtn);
   card.appendChild(cardBody);
   column.appendChild(card);
   row.appendChild(column);
@@ -45,7 +61,8 @@ function addBookToLibrary() {
 
   let book = new Book(title.value, author.value, pages.value);
   myLibrary.push(book);
-  createCard(book);
+  const bookCard = new Card(book);
+  bookCard.createCard(book);
 }
 
 btn.addEventListener("click", addBookToLibrary);
