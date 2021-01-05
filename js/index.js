@@ -88,9 +88,9 @@ function resetList() {
 
 function newBook(bookCard) {
   resetList();
-  for (const book of myLibrary) {
+  myLibrary.forEach(book => {
     bookCard.createCard(book);
-  }
+  })
 }
 
 function restoreLocal() {
