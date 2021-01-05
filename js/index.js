@@ -1,4 +1,8 @@
 let myLibrary = [];
+let title = document.querySelector('#title');
+let author = document.querySelector('#author');
+let pages = document.querySelector('#pages');
+let read = document.querySelector('#readStatus');
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -11,16 +15,19 @@ const btn = document.querySelector('#createBtn');
 btn.addEventListener("click", addBookToLibrary);
 
 function addBookToLibrary() {
-  let title = document.querySelector('#title');
-  let author = document.querySelector('#author');
-  let pages = document.querySelector('#pages');
-  let read = document.querySelector('#readStatus');
-
   let book = new Book(title.value, author.value, pages.value, read.checked);
   myLibrary.push(book);
   saveLocal();
   const bookCard = new Card(book);
   newBook(bookCard);
+  cleanInputs();
+}
+
+function cleanInputs() {
+  title.value = '';
+  author.value = '';
+  pages.value = '';
+  read.checked = false;
 }
 
 function newBook(bookCard) {
@@ -49,10 +56,10 @@ function Card(book) {
 
 Card.prototype.createCard = (book) => {
   const column = document.createElement('div');
-  column.classList.add('col-6');
+  column.className = 'mb-3 col-6';
 
   const card = document.createElement('div');
-  card.classList.add('card');
+  card.className = 'shadow card';
 
   const cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
@@ -67,10 +74,10 @@ Card.prototype.createCard = (book) => {
 
   const cardPages = document.createElement('p');
   cardPages.classList.add('card-text');
-  cardPages.textContent = book.pages;
+  cardPages.textContent = `${book.pages} pages`;
 
   const bookRead = document.createElement('button');
-  bookRead.classList.add('read-status');
+  bookRead.className = 'btn btn-secondary mr-3';
   bookRead.addEventListener('click', changeStatus);
   if(book.read) {
     bookRead.textContent = 'Read';
@@ -80,6 +87,7 @@ Card.prototype.createCard = (book) => {
 
   const deleteBtn = document.createElement('button');
   deleteBtn.setAttribute('type', 'button');
+  deleteBtn.className = 'btn btn-danger';
   deleteBtn.textContent = 'Delete Book';
   deleteBtn.addEventListener('click', deleteBook);
 

@@ -11,18 +11,31 @@
 
 <body>
   <header class="container">
-    <h1>
+    <h1 class="text-center mb-4">
       Library
     </h1>
   </header>
 
   <main>
     <div class="container">
-      <input type="text" name="title" id="title">
-      <input type="text" name="author" id="author">
-      <input type="number" name="pages" id="pages">
-      <input type="checkbox" name="read" id="readStatus">
-      <button type="button" id="createBtn">Create Book</button>
+        <div class="mb-5">
+          <div class="mb-3">
+            <input type="text" name="title" id="title" class="form-label w-75 mx-auto d-block" placeholder="Book Title">
+          </div>
+          <div class="mb-3">
+            <input type="text" name="author" id="author" class="form-label w-75 mx-auto d-block" placeholder="Author Name">
+          </div>
+          <div class="mb-3">
+            <input type="number" name="pages" id="pages" class="form-label w-75 mx-auto d-block" placeholder="Number of Pages">
+          </div>
+          <div class="mb-3 form-check text-center">
+            <input type="checkbox" name="read" id="readStatus" class="form-check-input">
+            <label class="form-check-label">Read?</label>
+          </div>
+          <div>
+            <button type="button" id="createBtn" class="btn btn-primary mx-auto d-block">Create Book</button>
+          </div>
+        </div>
 
       <div class="row">
       </div>
