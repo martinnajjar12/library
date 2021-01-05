@@ -21,7 +21,7 @@ function Card(book) {
 }
 
 function changeStatus(e) {
-  if(e.target.textContent == 'Read') {
+  if (e.target.textContent === 'Read') {
     e.target.textContent = 'Not Read';
   } else {
     e.target.textContent = 'Read';
@@ -50,7 +50,7 @@ Card.prototype.createCard = (book) => {
   cardTitle.textContent = book.title;
 
   const subTitle = document.createElement('h6');
-  subTitle.className = 'card-subtitle mb-2 text-muted'
+  subTitle.className = 'card-subtitle mb-2 text-muted';
   subTitle.textContent = book.author;
 
   const cardPages = document.createElement('p');
@@ -60,7 +60,7 @@ Card.prototype.createCard = (book) => {
   const bookRead = document.createElement('button');
   bookRead.className = 'btn btn-secondary mr-3';
   bookRead.addEventListener('click', changeStatus);
-  if(book.read) {
+  if (book.read) {
     bookRead.textContent = 'Read';
   } else {
     bookRead.textContent = 'Not Read';
@@ -80,7 +80,7 @@ Card.prototype.createCard = (book) => {
   card.appendChild(cardBody);
   column.appendChild(card);
   row.appendChild(column);
-}
+};
 
 function resetList() {
   row.innerHTML = '';
@@ -88,7 +88,7 @@ function resetList() {
 
 function newBook(bookCard) {
   resetList();
-  for (let book of myLibrary) {
+  for (const book of myLibrary) {
     bookCard.createCard(book);
   }
 }
@@ -96,7 +96,7 @@ function newBook(bookCard) {
 function restoreLocal() {
   myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
   if (myLibrary === null) myLibrary = [];
-  const bookCard = new Card;
+  const bookCard = new Card();
   newBook(bookCard);
 }
 
