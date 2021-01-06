@@ -10,6 +10,7 @@ This forked repo is to refactor the functions! I've changed the constructor func
 - CSS
 - Bootstrap
 - JavaScript
+- Factory Functions
 
 ## Live Preview
 
