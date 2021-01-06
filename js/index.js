@@ -19,6 +19,21 @@ const Book = (title, author, pages, read) => {
   };
 };
 
+function changeStatus(e) {
+  if (e.target.textContent === 'Read') {
+    e.target.textContent = 'Not Read';
+  } else {
+    e.target.textContent = 'Read';
+  }
+}
+
+function deleteBook(e) {
+  const bookIndex = myLibrary.indexOf(e.target);
+  myLibrary.splice(bookIndex, 1);
+  saveLocal();
+  e.target.offsetParent.parentElement.remove();
+}
+
 // function Book(title, author, pages, read) {
 //   this.title = title;
 //   this.author = author;
@@ -79,21 +94,6 @@ const Card = (book) => {
 // function Card(book) {
 //   this.book = book;
 // }
-
-function changeStatus(e) {
-  if (e.target.textContent === 'Read') {
-    e.target.textContent = 'Not Read';
-  } else {
-    e.target.textContent = 'Read';
-  }
-}
-
-function deleteBook(e) {
-  const bookIndex = myLibrary.indexOf(e.target);
-  myLibrary.splice(bookIndex, 1);
-  saveLocal();
-  e.target.offsetParent.parentElement.remove();
-}
 
 // Card.prototype.createCard = (book) => {
 //   const column = document.createElement('div');
@@ -172,8 +172,7 @@ function createAlertDiv(klass) {
   warning.className = `alert alert-${klass} alert-dismissible fade show`;
   warning.setAttribute('role', 'alert');
   if (klass === 'danger') {
-    warning.textContent =
-      "Your book wasn't created! Please fill in the form correctly!";
+    warning.textContent = "Your book wasn't created! Please fill in the form correctly!";
   } else {
     warning.textContent = 'Your book has been successfully created!';
   }
