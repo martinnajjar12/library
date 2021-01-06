@@ -10,14 +10,7 @@ function saveLocal() {
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }
 
-const Book = (title, author, pages, read) => {
-  return {
-    title: title.value,
-    author: author.value,
-    pages: pages.value,
-    read: read.checked,
-  };
-};
+const Book = (title, author, pages, read) => (title, author, pages, read);
 
 function changeStatus(e) {
   if (e.target.textContent === 'Read') {
@@ -190,7 +183,7 @@ function addBookToLibrary() {
     createAlertDiv('danger');
     restoreLocal();
   } else {
-    const book = Book(title, author, pages, read);
+    const book = Book(title.value, author.value, pages.value, read.value);
     myLibrary.push(book);
     saveLocal();
     const bookCard = Card(book);
