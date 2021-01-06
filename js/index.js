@@ -11,8 +11,13 @@ function saveLocal() {
 }
 
 const Book = (title, author, pages, read) => {
-  return {title, author, pages, read}
-}
+  return {
+    title,
+    author,
+    pages,
+    read,
+  };
+};
 
 // function Book(title, author, pages, read) {
 //   this.title = title;
@@ -67,9 +72,9 @@ const Card = (book) => {
     card.appendChild(cardBody);
     column.appendChild(card);
     row.appendChild(column);
-    }
-  return { book, createCard }
-}
+  };
+  return { book, createCard };
+};
 
 // function Card(book) {
 //   this.book = book;
@@ -167,7 +172,8 @@ function createAlertDiv(klass) {
   warning.className = `alert alert-${klass} alert-dismissible fade show`;
   warning.setAttribute('role', 'alert');
   if (klass === 'danger') {
-    warning.textContent = "Your book wasn't created! Please fill in the form correctly!";
+    warning.textContent =
+      "Your book wasn't created! Please fill in the form correctly!";
   } else {
     warning.textContent = 'Your book has been successfully created!';
   }
