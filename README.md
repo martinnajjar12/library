@@ -2,7 +2,7 @@
 
 # Book Library
 
-We created a simple Book Library using javascript that gets the Book title, author, total pages, and if its already being read by the user. And it create cards that show all the books.
+This forked repo is to refactor the functions! I've changed the constructor functions into factory functions.
 
 ## Built With
 
@@ -13,11 +13,11 @@ We created a simple Book Library using javascript that gets the Book title, auth
 
 ## Live Preview
 
-[Book Library](https://jcy2704.github.io/library/)
+[Live Demo](https://martinnajjar12.github.io/library/)
 
 ## Getting Started
 
-**This project was created to understand more about the basic structure of Javascript.**
+**This repo was forked to use Factory Functions instead of Constructor Functions.**
 
 
 To get a local copy up and running follow these simple example steps.
@@ -35,12 +35,6 @@ Run live server extension in VSCode or run the index.html file from the cloned r
 
 ## Authors
 
-👤 **Steven Jack Chung**
-
-- GitHub: [@jcy2704](https://github.com/jcy2704)
-- Twitter: [@yiak_](https://twitter.com/yiak_)
-- LinkedIn: [Steven Jack Chung](https://linkedin.com/in/stevenjchung)
-
 👤 **Martin Najjar**
 
 - GitHub: [@martinnajjar12](https://github.com/martinnajjar12)
@@ -51,7 +45,7 @@ Run live server extension in VSCode or run the index.html file from the cloned r
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/jcy2704/library/issues).
+Feel free to check the [issues page](https://github.com/martinnajjar12/library/issues).
 
 ## Show your support
 
