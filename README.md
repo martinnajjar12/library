@@ -13,7 +13,7 @@ We created a simple Book Library using javascript that gets the Book title, auth
 
 ## Live Preview
 
-[Book Library](https://rawcdn.githack.com/jcy2704/library/8cf47919d4f0efef819c871a80a5e9b8a3e82f21/index.html)
+[Book Library](https://jcy2704.github.io/library/)
 
 ## Getting Started
 
