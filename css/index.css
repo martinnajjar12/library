@@ -9,3 +9,7 @@ body {
 .card {
   background-color: #c7c5c5;
 }
+
+.form-check .form-check-input {
+  float: none;
+}
