@@ -10,16 +10,12 @@ function saveLocal() {
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-
-function Card(book) {
-  this.book = book;
-}
+const Book = (title, author, pages, read) => ({
+  title,
+  author,
+  pages,
+  read,
+});
 
 function changeStatus(e) {
   if (e.target.textContent === 'Read') {
@@ -36,60 +32,122 @@ function deleteBook(e) {
   e.target.offsetParent.parentElement.remove();
 }
 
-Card.prototype.createCard = (book) => {
-  const column = document.createElement('div');
-  column.className = 'mb-3 col-6';
+// function Book(title, author, pages, read) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.read = read;
+// }
 
-  const card = document.createElement('div');
-  card.className = 'shadow card';
+const Card = (book) => {
+  const createCard = (book) => {
+    const column = document.createElement('div');
+    column.className = 'mb-3 col-6';
 
-  const cardBody = document.createElement('div');
-  cardBody.classList.add('card-body');
+    const card = document.createElement('div');
+    card.className = 'shadow card';
 
-  const cardTitle = document.createElement('h5');
-  cardTitle.classList.add('card-title');
-  cardTitle.textContent = book.title;
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
 
-  const subTitle = document.createElement('h6');
-  subTitle.className = 'card-subtitle mb-2 text-muted';
-  subTitle.textContent = book.author;
+    const cardTitle = document.createElement('h5');
+    cardTitle.classList.add('card-title');
+    cardTitle.textContent = book.title;
 
-  const cardPages = document.createElement('p');
-  cardPages.classList.add('card-text');
-  cardPages.textContent = `${book.pages} pages`;
+    const subTitle = document.createElement('h6');
+    subTitle.className = 'card-subtitle mb-2 text-muted';
+    subTitle.textContent = book.author;
 
-  const bookRead = document.createElement('button');
-  bookRead.className = 'btn btn-secondary mr-3';
-  bookRead.addEventListener('click', changeStatus);
-  if (book.read) {
-    bookRead.textContent = 'Read';
-  } else {
-    bookRead.textContent = 'Not Read';
-  }
+    const cardPages = document.createElement('p');
+    cardPages.classList.add('card-text');
+    cardPages.textContent = `${book.pages} pages`;
 
-  const deleteBtn = document.createElement('button');
-  deleteBtn.setAttribute('type', 'button');
-  deleteBtn.className = 'btn btn-danger';
-  deleteBtn.textContent = 'Delete Book';
-  deleteBtn.addEventListener('click', deleteBook);
+    const bookRead = document.createElement('button');
+    bookRead.className = 'btn btn-secondary mr-3';
+    bookRead.addEventListener('click', changeStatus);
+    if (book.read) {
+      bookRead.textContent = 'Read';
+    } else {
+      bookRead.textContent = 'Not Read';
+    }
 
-  cardBody.appendChild(cardTitle);
-  cardBody.appendChild(subTitle);
-  cardBody.appendChild(cardPages);
-  cardBody.appendChild(bookRead);
-  cardBody.appendChild(deleteBtn);
-  card.appendChild(cardBody);
-  column.appendChild(card);
-  row.appendChild(column);
+    const deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('type', 'button');
+    deleteBtn.className = 'btn btn-danger';
+    deleteBtn.textContent = 'Delete Book';
+    deleteBtn.addEventListener('click', deleteBook);
+
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(subTitle);
+    cardBody.appendChild(cardPages);
+    cardBody.appendChild(bookRead);
+    cardBody.appendChild(deleteBtn);
+    card.appendChild(cardBody);
+    column.appendChild(card);
+    row.appendChild(column);
+  };
+  return { book, createCard };
 };
+
+// function Card(book) {
+//   this.book = book;
+// }
+
+// Card.prototype.createCard = (book) => {
+//   const column = document.createElement('div');
+//   column.className = 'mb-3 col-6';
+
+//   const card = document.createElement('div');
+//   card.className = 'shadow card';
+
+//   const cardBody = document.createElement('div');
+//   cardBody.classList.add('card-body');
+
+//   const cardTitle = document.createElement('h5');
+//   cardTitle.classList.add('card-title');
+//   cardTitle.textContent = book.title;
+
+//   const subTitle = document.createElement('h6');
+//   subTitle.className = 'card-subtitle mb-2 text-muted';
+//   subTitle.textContent = book.author;
+
+//   const cardPages = document.createElement('p');
+//   cardPages.classList.add('card-text');
+//   cardPages.textContent = `${book.pages} pages`;
+
+//   const bookRead = document.createElement('button');
+//   bookRead.className = 'btn btn-secondary mr-3';
+//   bookRead.addEventListener('click', changeStatus);
+//   if (book.read) {
+//     bookRead.textContent = 'Read';
+//   } else {
+//     bookRead.textContent = 'Not Read';
+//   }
+
+//   const deleteBtn = document.createElement('button');
+//   deleteBtn.setAttribute('type', 'button');
+//   deleteBtn.className = 'btn btn-danger';
+//   deleteBtn.textContent = 'Delete Book';
+//   deleteBtn.addEventListener('click', deleteBook);
+
+//   cardBody.appendChild(cardTitle);
+//   cardBody.appendChild(subTitle);
+//   cardBody.appendChild(cardPages);
+//   cardBody.appendChild(bookRead);
+//   cardBody.appendChild(deleteBtn);
+//   card.appendChild(cardBody);
+//   column.appendChild(card);
+//   row.appendChild(column);
+// };
 
 function resetList() {
   row.innerHTML = '';
 }
 
-function newBook(bookCard) {
+function newBook() {
   resetList();
   myLibrary.forEach((book) => {
+    const bookCard = Card();
     bookCard.createCard(book);
   });
 }
@@ -97,8 +155,7 @@ function newBook(bookCard) {
 function restoreLocal() {
   myLibrary = JSON.parse(localStorage.getItem('myLibrary'));
   if (myLibrary === null) myLibrary = [];
-  const bookCard = new Card();
-  newBook(bookCard);
+  newBook();
 }
 
 function cleanInputs() {
@@ -131,10 +188,10 @@ function addBookToLibrary() {
     createAlertDiv('danger');
     restoreLocal();
   } else {
-    const book = new Book(title.value, author.value, pages.value, read.checked);
+    const book = Book(title.value, author.value, pages.value, read.value);
     myLibrary.push(book);
     saveLocal();
-    const bookCard = new Card(book);
+    const bookCard = Card(book);
     newBook(bookCard);
     createAlertDiv('success');
     cleanInputs();
