@@ -112,9 +112,8 @@ function createAlertDiv(klass) {
   const warning = document.createElement('div');
   warning.className = `alert alert-${klass} alert-dismissible fade show`;
   warning.setAttribute('role', 'alert');
-  if (klass == 'danger') {
-    warning.textContent =
-      "Your book wasn't created! Please fill in the form correctly!";
+  if (klass === 'danger') {
+    warning.textContent = "Your book wasn't created! Please fill in the form correctly!";
   } else {
     warning.textContent = 'Your book has been successfully created!';
   }
