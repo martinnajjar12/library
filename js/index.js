@@ -10,7 +10,12 @@ function saveLocal() {
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
 }
 
-const Book = (title, author, pages, read) => (title, author, pages, read);
+const Book = (title, author, pages, read) => ({
+  title,
+  author,
+  pages,
+  read,
+});
 
 function changeStatus(e) {
   if (e.target.textContent === 'Read') {
