@@ -4,6 +4,7 @@ const author = document.querySelector('#author');
 const pages = document.querySelector('#pages');
 const read = document.querySelector('#readStatus');
 const row = document.querySelector('.row');
+const container = document.querySelector('.container');
 
 function saveLocal() {
   localStorage.setItem('myLibrary', JSON.stringify(myLibrary));
@@ -88,7 +89,7 @@ function resetList() {
 
 function newBook(bookCard) {
   resetList();
-  myLibrary.forEach(book => {
+  myLibrary.forEach((book) => {
     bookCard.createCard(book);
   });
 }
@@ -107,8 +108,28 @@ function cleanInputs() {
   read.checked = false;
 }
 
+function createAlertDiv(klass) {
+  const warning = document.createElement('div');
+  warning.className = `alert alert-${klass} alert-dismissible fade show`;
+  warning.setAttribute('role', 'alert');
+  if (klass == 'danger') {
+    warning.textContent =
+      "Your book wasn't created! Please fill in the form correctly!";
+  } else {
+    warning.textContent = 'Your book has been successfully created!';
+  }
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'btn-close';
+  closeBtn.setAttribute('type', 'button');
+  closeBtn.setAttribute('data-bs-dismiss', 'alert');
+  closeBtn.setAttribute('aria-label', 'close');
+  warning.appendChild(closeBtn);
+  container.appendChild(warning);
+}
+
 function addBookToLibrary() {
   if (title.value === '' || author.value === '' || pages.value === '') {
+    createAlertDiv('danger');
     restoreLocal();
   } else {
     const book = new Book(title.value, author.value, pages.value, read.checked);
@@ -116,6 +137,7 @@ function addBookToLibrary() {
     saveLocal();
     const bookCard = new Card(book);
     newBook(bookCard);
+    createAlertDiv('success');
     cleanInputs();
   }
 }
