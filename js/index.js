@@ -12,10 +12,10 @@ function saveLocal() {
 
 const Book = (title, author, pages, read) => {
   return {
-    title,
-    author,
-    pages,
-    read,
+    title: title.value,
+    author: author.value,
+    pages: pages.value,
+    read: read.checked,
   };
 };
 
@@ -190,7 +190,7 @@ function addBookToLibrary() {
     createAlertDiv('danger');
     restoreLocal();
   } else {
-    const book = Book(title.value, author.value, pages.value, read.checked);
+    const book = Book(title, author, pages, read);
     myLibrary.push(book);
     saveLocal();
     const bookCard = Card(book);
